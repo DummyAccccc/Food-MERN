@@ -1,16 +1,18 @@
 import { Router } from "express";
-import { Restaurant } from "../models/restaurants.model.js";
 import { createRestaurant, deleteRestaurant, getOneRestaurant, getRestaurant, updateRestaurant } from "../controllers/restaurant.controller.js";
 
-const app = Router();
+const userRouter = Router();
 
 
-app.get('/api/restaurant', getRestaurant)
+userRouter.get('/api/restaurant', getRestaurant)
 
-app.get('/api/restaurant/:id', getOneRestaurant)
+userRouter.get('/api/restaurant/:id', getOneRestaurant)
 
-app.post('/api/restaurant', createRestaurant)
+userRouter.post('/api/restaurant', createRestaurant)
 
-app.put('/api/restaurant/:id', updateRestaurant)
+userRouter.put('/api/restaurant/:id', updateRestaurant)
 
-app.delete('/api/restaurant/:id', deleteRestaurant)
+userRouter.delete('/api/restaurant/:id', deleteRestaurant)
+
+
+export default userRouter;
