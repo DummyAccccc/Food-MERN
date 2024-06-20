@@ -1,7 +1,5 @@
 import { Restaurant } from "../models/restaurants.model.js";
 
-
-
 export const getRestaurant = async (req, res) => {
     try {
         const allRestaurants = await Restaurant.find({});

@@ -2,21 +2,22 @@ import express, { request, response } from 'express';
 import cors from 'cors';
 import { MONGODB_CONNECTION_URL, PORT } from '../constants/index.constants.js';
 import mongoose from 'mongoose';
-import { Restaurant } from '../models/restaurants.model.js';
-import { User } from '../models/users.model.js';
-
+import restaurantRouter from '../routes/restaurant.routes.js';
+import userRouter from '../routes/user.routes.js';
 const app = express();
 
 app.use(express.json())
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));
-app.use(userRouter)
+app.use('/api/users', userRouter)
+app.use('/api/restaurant', restaurantRouter)
+
 
 app.listen(PORT, () => {
     console.log(`server is running on port - ${PORT}`);
 })
 
-    //users api
+//users api
 
 
 mongoose.connect(MONGODB_CONNECTION_URL)

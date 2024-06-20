@@ -1,18 +1,18 @@
 import { Router } from "express";
 import { createRestaurant, deleteRestaurant, getOneRestaurant, getRestaurant, updateRestaurant } from "../controllers/restaurant.controller.js";
 
-const userRouter = Router();
+const restaurantRouter = Router();
 
 
-userRouter.get('/api/restaurant', getRestaurant)
+restaurantRouter.get('/', getRestaurant)
 
-userRouter.get('/api/restaurant/:id', getOneRestaurant)
+restaurantRouter.get(':id', getOneRestaurant)
 
-userRouter.post('/api/restaurant', createRestaurant)
+restaurantRouter.post('/api/restaurant', createRestaurant)
 
-userRouter.put('/api/restaurant/:id', updateRestaurant)
+restaurantRouter.put('/:id', updateRestaurant)
 
-userRouter.delete('/api/restaurant/:id', deleteRestaurant)
+restaurantRouter.delete('/:id', deleteRestaurant)
 
 
-export default userRouter;
+export default restaurantRouter;
