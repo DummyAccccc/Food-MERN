@@ -6,7 +6,7 @@ const restaurantRouter = Router();
 
 restaurantRouter.get('/', getRestaurant)
 
-restaurantRouter.get(':id', getOneRestaurant)
+restaurantRouter.get(':/id', getOneRestaurant)
 
 restaurantRouter.post('/api/restaurant', createRestaurant)
 

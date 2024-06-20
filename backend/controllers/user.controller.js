@@ -39,7 +39,7 @@ export const putUser = async (request, response) => {
             // image: uploadResult.url //save cloudinary url
         })
 
-        await User.save()
+        await user.save()
 
         response.status(200).json(user)
 

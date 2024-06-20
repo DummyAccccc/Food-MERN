@@ -27,7 +27,7 @@ export const createRestaurant = async (req, res) => {
     try {
         const { body } = req;
         const newRestaurant = await Restaurant.create(body);
-        if (!restaurant) return res.status(400).send("Restaurant Not added...");
+        if (!newRestaurant) return res.status(400).send("Restaurant Not added...");
 
     } catch (error) {
         res.status(500).json({ msg: error.message })
