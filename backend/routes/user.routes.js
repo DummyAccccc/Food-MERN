@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { deleteUser, getUserById, getUsers, putUser, updateUser } from "../controllers/user.controller.js";
 // import userRouter from "./restaurant.routes";
-import { getUsers, getUserById, putUser, updateUser, deleteUser } from "../controllers/user.controller";
+// import { getUsers, getUserById, putUser, updateUser, deleteUser } from "../controllers/user.controller";
 const userRouter = Router();
 
 // userRouter.get('/api/users',getUsers)
