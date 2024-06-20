@@ -1,8 +1,9 @@
-import express from 'express';
+import express, { request, response } from 'express';
 import cors from 'cors';
 import { MONGODB_CONNECTION_URL, PORT } from '../constants/index.constants.js';
 import mongoose from 'mongoose';
 import { Restaurant } from '../models/restaurants.model.js';
+import { User } from '../models/users.model.js';
 
 const app = express();
 
@@ -15,10 +16,92 @@ app.listen(PORT, () => {
     console.log(`server is running on port - ${PORT}`);
 })
 
-    //users api
+//users api
+app.get('/api/users', async (request, response) => {
+    try {
+        const users = await User.find({})
+        response.status(200).json(users)
+    } catch (error) {
+        response.status(401).json({ msg: error.message })
+
+    }
+})
+
+app.get('/api/users/:id', async (request, response) => {
+    try {
+        const { id } = request.params
+        const user = await User.findById(id)
+        const { type, email, password, address, city, country } = user
+        if (!user) {
+            response.status(404).json({ msg: 'user not found' })
+        }
+        // response.json(product)
+        response.send({ type: type, email: email, password: password, address: address, city: city, country: country })
+    } catch (error) {
+        response.status(401).json({ msg: error.message })
+
+    }
+})
+
+app.post('/api/users', async (request, response) => {
+    try {
+        // const localFilePath = request.file.path
+        const { type, email, password, address, city, country } = request.body
+
+        // const uploadResult = await uploadOnCloudinary(localFilePath)
+
+        // if (!uploadResult) {
+        //     return response.status(500).json({ msg: 'File upload to Cloudinary failed' });
+        // }
+        // fs.unlinkSync(localFilePath)
+        const user = new User({
+            type, email, password, address, city, country,
+            // image: uploadResult.url //save cloudinary url
+        })
+
+        await user.save()
+
+        response.status(200).json(user)
+    } catch (error) {
+        response.status(500).json({ msg: "hello there" })
+    }
+})
+
+app.put('/api/users/:id', async (request, response) => {
+    try {
+        // const fileLocalPath = request.file.path;
+        // const result = await uploadOnCloudinary(fileLocalPath);
+        // if (!result) {
+        //     return response.status(500).json({ msg: 'File upload to Cloudinary failed' });
+        // }
+        // const imgurl = result.url;
+
+        const { id } = request.params;
+        const user = await User.findByIdAndUpdate(id, request.body , { new: true });
+        if (!user) return response.status(404).send({ msg: "user not found" });
+        response.status(200).json(user);
+    } catch (error) {
+        response.status(500).json({ msg: error.message });
+    }
+})
+
+app.delete('/api/users/:id',async(request,response)=>{
+    try {
+        const { id } = request.params
+        const user = await User.findByIdAndDelete(id)
+        if (!user) return response.status(400).send({ msg: "user not found" })
+
+        response.status(200).send({ msg: "user deleted successfully" })
+    } catch (error) {
+        response.status(401).json({ msg: error.message })
+
+    }
+})
 
 
-    mongoose.connect(MONGODB_CONNECTION_URL)
+
+
+mongoose.connect(MONGODB_CONNECTION_URL)
     .then(() => {
         console.log("connected to db...")
     })
