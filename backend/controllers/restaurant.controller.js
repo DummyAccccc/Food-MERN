@@ -2,7 +2,7 @@ import { Restaurant } from "../models/restaurants.model.js";
 
 export const getRestaurant = async (req, res) => {
     try {
-        const allRestaurants = await Restaurant.find({});
+        const allRestaurants = await Restaurant.find({}).populate('user')
         if (!allRestaurants) return res.status(400).send("Restaurant Not found...");
 
         return res.status(200).json(allRestaurants)
