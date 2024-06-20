@@ -7,9 +7,9 @@ import userRouter from '../routes/user.routes.js';
 import orderRouter from '../routes/order.routes.js';
 const app = express();
 
-app.use(express.json())
-app.use(cors())
 app.use(express.urlencoded({ extended: false }));
+app.use(cors())
+app.use(express.json())
 app.use('/api/users', userRouter)
 app.use('/api/restaurant', restaurantRouter)
 app.use('/api/orders',orderRouter)
